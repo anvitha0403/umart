@@ -1,7 +1,7 @@
 import express from "express"
 import * as authController from "../controllers/auth.controller"
-
-export const auth = express.Router()
-auth.route("/register")
-    .get(authController.register)
-
+import {auth} from "../config/jwt/auth"
+export const authr = express.Router()
+authr.route("/register")
+    .post(authController.register)
+authr.post("/signin",authController.signin)
