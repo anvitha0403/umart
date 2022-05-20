@@ -1,0 +1,173 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@800&display=swap');
+
+*{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
+}
+
+.nav{
+  display: flex;
+  flex-direction: column;
+ 
+  background-color:#e7eff6;
+  
+ 
+ 
+  font-family: "Helvetica Neue",Helvetica,Arial;
+ 
+}
+.nav-container{
+
+  display:flex;
+  justify-content: space-between;
+   width:95vw;
+   margin:auto;
+  align-items: stretch;
+
+
+margin:auto;
+}
+.side_links{
+  display:block;
+  text-align:center;
+  font-family: 
+  'Rubik', sans-serif;
+    color: #6497b1;
+    text-transform: uppercase;
+   padding:30px;
+}
+.side_links:hover{
+  border-bottom: 5px solid #2a4d69;
+
+ 
+}
+
+.logo{
+  font-family: 'Rubik', sans-serif;
+  color:#2a4d69;
+  font-size: 2.5rem;
+  padding:10px;
+}
+.nav-child{
+  display:flex;
+ 
+
+}
+.central-links{
+padding: 10px;
+padding-right: 100px;
+padding-left: 100px;
+color: #2a4d69;
+
+}
+.nav-home{
+  display:flex;
+  background-color:#b3cde0;
+ 
+  justify-content:center;
+}
+
+
+
+
+/* +==========================slider=================================== */
+section {
+  width:90vw;
+  height:75vh;
+    position: relative;
+  border:1px solid black;
+  margin:auto;
+
+  background-color:red;
+}
+
+.wrapper{
+ overflow:hidden;
+  
+
+}
+.button-holder{
+  position:absolute;
+  bottom:3px;
+  left:50%;
+  transform:translate(-50%,-50%);
+ 
+}
+.slider-dots{
+  width:10px;
+  height:10px;
+  margin:5px;
+  display:inline-block;
+  color:white;
+  z-index: 1000;
+  border-radius:50%;
+  background-color:white;
+
+}
+.slider-holder{
+  display:grid;
+  animation: slide 15s ease 4s infinite;
+  grid-template-columns: repeat(3,100%);
+}
+#slider-image-1{
+  
+  background:#6497b1;
+  height: 75vh;
+}
+#slider-image-2{
+  
+  background:#0e0f10;
+  height: 75vh;
+}
+#slider-image-3{
+  
+  background:#6497b1;
+height: 75vh;
+}
+@keyframes slide {
+  0%{
+    transform: translateX(0%)
+
+  }
+  10%{
+    transform: translateX(-20%)
+
+  }
+ 20% {
+   transform: translateX(-70%)
+ }
+ 30% {
+   transform: translateX(-100%)
+ }
+ 40% {
+   transform: translateX(-100%)
+ }
+ 60%{
+  transform: translateX(-200%)
+ }
+ 70% {
+   transform: translateX(-200%)
+ }
+ 80%{
+    transform: translateX(-150%)
+ }
+ 80% {
+   transform: translateX(0%)
+ }
+ 
+
+
+ 100%{
+    transform: translateX(0%)
+  
+ }
+  
+  
+}
+/* +==========================slider=================================== */
