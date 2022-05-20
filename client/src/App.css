@@ -1,10 +1,12 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Rubik:wght@800&display=swap');
 
 *{
   padding:0;
   margin:0;
   box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    
+
 }
 
 a{
@@ -14,7 +16,7 @@ a{
 .nav{
   display: flex;
   flex-direction: column;
- 
+ font-weight:800;
   background-color:#e7eff6;
   
  
@@ -171,3 +173,67 @@ height: 75vh;
   
 }
 /* +==========================slider=================================== */
+
+
+
+
+/* ===========ProductCard============== */
+
+.product-card{
+  width:300px;
+  padding:10px;
+  color:rgba(129, 115, 115, 0.855);
+  text-align:center;
+
+}
+.product-card__image{
+display:flex;
+justify-content:center;
+}
+.product-card__image img{
+  height: 0%;
+  width: 90%;
+  object-fit: contain;
+  margin:auto;
+ 
+}
+.product-card__button-container{
+  display:flex;
+
+}
+.product-card__info-category{
+  font-weight:800;
+  letter-spacing:1.2px;
+  color:#2a4d69;
+  margin-bottom:10px;
+
+}
+.demo{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+}
+.product-card__info-price{
+  padding:10px;
+  background-color:burlywood;
+  display:inline-block;
+}
+.product-card__button.full{
+  flex:1;
+}
+
+.product-card__button{
+  background-color:#b3cde0;
+  color:#6497b1;
+  font-weight: 600;
+  display: inline-block;
+  padding:10px;
+  margin:3px;
+  cursor: pointer;
+  
+}
+
+.product-card__button:hover{background-color: #aad4f1;
+  color: #426272;
+
+}
+/* ===========ProductCard============== */

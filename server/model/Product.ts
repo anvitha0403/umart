@@ -9,8 +9,8 @@ const productSchema = mongoose.Schema({
         maxlength:250
     },
     category:{
-        type: Schema.Types.ObjectId,
-        ref: 'Brand',
+        type: String,
+       
         required:true
     },
     
@@ -35,8 +35,8 @@ const productSchema = mongoose.Schema({
         default:false
     },
     images:{
-        type:Array,
-        default:[]
+        type:String,
+        default:""
     },
     date:{
         type:Date,

@@ -9,4 +9,5 @@ prodr.route("/:id")
 prodr.route("/")
     .post(auth(["admin", "user"]), productController.newProduct)
     .get(auth(["user","admin"]),productController.getAllProducts)
-
+prodr.route("/all")
+.post(auth(["admin", "user"]), productController.allnewProduct)

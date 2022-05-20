@@ -23,6 +23,24 @@ export const newProduct = async (
     next(err);
   }
 };
+
+export const allnewProduct = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const data = req.body.data;
+    console.log(data)
+   
+ 
+    const product =await Product.insertMany(data);
+  
+    res.status(200).json(product);
+  } catch (err) {
+    next(err);
+  }
+};
 export const getProduct = async (
   req: express.Request,
   res: express.Response,
