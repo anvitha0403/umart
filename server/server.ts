@@ -1,5 +1,13 @@
 import express from 'express';
 const app = express()
+const cors = require('cors');
+
+const corsOption = {
+    origin: ['http://localhost:3000'],
+};
+app.use(cors(corsOption));
+//if you want in every domain then
+app.use(cors())
 import mongoose from "mongoose";
 // import xss from 'xss-clean';
 import mongoSanitize from 'express-mongo-sanitize';
@@ -19,7 +27,7 @@ import {handleError,ApiError} from "./config/error"
 
 dotenv.config()
 app.use(mongoSanitize())
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000
 app.use(passport.initialize());
 passport.use('jwt',jwtStrategy );
 database()

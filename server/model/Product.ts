@@ -34,13 +34,15 @@ const productSchema = mongoose.Schema({
         required:[true,'Specify if this product has free shipping'],
         default:false
     },
-    images:{
+    image:{
         type:String,
         default:""
     },
-    date:{
-        type:Date,
-        default: Date.now
+    dateinsec:{
+        type:Number,
+        default:function() {
+            return (Math.random()*10000)+(new Date().getTime());
+        }
     }
 });
 

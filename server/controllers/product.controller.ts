@@ -64,7 +64,18 @@ export const getAllProducts = async (
   next: express.NextFunction
 ) => {
   try {
-    const Prod = await Product.find({});
+    var { sortBy, order, limit } = req.query;
+    order = String(order)
+    sortBy=String(sortBy)
+    
+    var search = {
+      [sortBy]:  parseInt(order)
+    }
+   
+    console.log(search)
+
+    console.log("reACHED SERVER")
+    const Prod = await Product.find({}).limit(limit).sort(search);
     if (Prod == null) {
       throw new ApiError(httpStatus.NOT_FOUND, "Products not found");
     }
@@ -73,6 +84,7 @@ export const getAllProducts = async (
     next(err);
   }
 };
+
 export const deleteProduct = async (
   req: express.Request,
   res: express.Response,
@@ -81,7 +93,8 @@ export const deleteProduct = async (
   try {
     const id = req.params.id;
     console.log(id);
-    const prod = Product.findByIdAndRemove(
+  
+    const prod =await Product.findByIdAndRemove(
       { _id: id },
       { new: true },
       (err: any) => {
