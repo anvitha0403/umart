@@ -1,16 +1,26 @@
 import { createAsyncThunk,createSlice } from '@reduxjs/toolkit'
-
+import { fetchurl } from '../../middlewares/Request';
 
 const getProductByPrice = createAsyncThunk('homeProd/getProductByPrice', async () => {
-    const response = await fetch('http://localhost:5000/api/product?sortBy=price&order=1&limit=3').then((data) => data.json())
+    const response = await fetchurl(
+      "http://localhost:5000/api/product?sortBy=price&order=1&limit=3",null,'GET',null
+    )
     return response
 
     
     
 })
 const getProductByDate= createAsyncThunk('homeProd/getProductByDate', async () => {
-    const response = await fetch('http://localhost:5000/api/product?sortBy=date&order=%2D1&limit=3').then((data) => data.json())
-    return response
+  const response = await fetchurl(
+    "http://localhost:5000/api/product?sortBy=price&order=1&limit=3",
+    null,
+    "GET",
+    null
+  )
+   console.log(response);
+   return response;
+ 
+ 
 
     
     
@@ -18,7 +28,7 @@ const getProductByDate= createAsyncThunk('homeProd/getProductByDate', async () =
 const initialState = {
     productsByDate: [],
     productsByPrice: [],
-    loading: false
+    error: false
 
 }
 const ProductHomeSlice = createSlice({
@@ -27,24 +37,24 @@ const ProductHomeSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getProductByDate.pending]: (state) => {
-      state.loading = true;
+    
     },
     [getProductByDate.fulfilled]: (state, { payload }) => {
-      state.loading = false;
+      
       state.productsByDate = payload;
     },
     [getProductByDate.rejected]: (state) => {
-      state.loading = false;
+      state.error = true;
     },
     [getProductByPrice.pending]: (state) => {
-      state.loading = true;
+     
     },
     [getProductByPrice.fulfilled]: (state, { payload }) => {
-      state.loading = false;
+     
       state.productsByPrice = payload;
     },
     [getProductByPrice.rejected]: (state) => {
-      state.loading = false;
+      state.error = true;
     },
   },
 });

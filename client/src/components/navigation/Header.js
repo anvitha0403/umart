@@ -1,36 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch ,useSelector} from 'react-redux'
+import {clearUser} from '../../features/user/userSlice'
 
-/**
- * 
- * @returns   <header className="bck_b_light">
-      <div className="container">
-        <div className="left">
-          <div className="logo">WAVES</div>
-        </div>
-        <div className="right">
-          <div className="top">
-            <>
-              <div className="cart_link">
-                <span>1</span>
-                <Link to="/dashboard/user/user_cart">My cart</Link>
-              </div>
 
-              <Link to="/dashboard">My account</Link>
-              <span onClick={() => alert("log out")}>Log out</span>
-
-              <Link to="/sign_in">Log in</Link>
-            </>
-          </div>
-          <div className="bottom">
-            <Link to="/">Home</Link>
-            <Link to="/shop">Shop</Link>
-          </div>
-        </div>
-      </div>
-    </header>
- */
 const Header = () => {
+  const dispatch = useDispatch();
+  const user=useSelector(state=>state.user)
+  const Navigate = useNavigate();
+  const handlelogout = () => {
+    dispatch(clearUser())
+    localStorage.removeItem('token')
+    Navigate("/")
+  }
   return (
     <nav className="nav">
       <div className="nav-container">
@@ -45,13 +27,15 @@ const Header = () => {
           <Link className="side_links" to="/dashboard">
             My account
           </Link>
-          <Link className="side_links" to="/">
-            <span onClick={() => alert("log out")}>Log out</span>
-          </Link>
-
-          <Link className="side_links" to="/sign_in">
-            Log in
-          </Link>
+          {user && user.data.token ? (
+            <Link className="side_links" to="/">
+              <span onClick={handlelogout}>Log out</span>
+            </Link>
+          ) : (
+            <Link className="side_links" to="/signin">
+              Log in
+            </Link>
+          )}
         </div>
       </div>
       <div className="nav-home">

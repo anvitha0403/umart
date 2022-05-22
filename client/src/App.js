@@ -1,20 +1,25 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home"
+import Signup from "./components/Signup"
 import Header from "./components/navigation/Header"
-import ProductCard from "./templates/ProductCard";
-// import PostList from "./features/post/postList"
-import ProductHome from "./features/productHome/productsHome"
-import axios from 'axios'
+
+import Notification from "./features/Notification/Notification"
+
+import Form from './templates/Form'
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductByDate, getProductByPrice } from "./features/productHome/productHomeSlice";
+import { checkuser} from "./features/user/userSlice";
 import {Hero} from "./templates/Hero"
 
 
 import "./App.css"
+import DashBoard from "./components/DashBoard";
+import Cart from "./components/Cart";
 const App = () => {
+  const user = (localStorage.getItem("token"));
 
    
  const dispatch = useDispatch();
@@ -23,30 +28,26 @@ const App = () => {
  useEffect(() => {
    dispatch(getProductByDate());
    dispatch(getProductByPrice());
+   dispatch(checkuser(user))
+
  }, []);
-  const selector1 = "productsByPrice";
-  const selector2 = "productsByDate";
+ 
   return (
     <BrowserRouter>
-      <Header></Header>
-     
-        <Hero
-          title="best selling products"
-          selector={selector1}
-        />
-        <Hero
-          title="Latest products"
-          selector={selector2}
-        />
+      <Notification>
+        <Header></Header>
 
-       
-    
+      
+        <Routes>
+          <Route path="/dashboard/user/user_cart" element={<Cart />} />
+          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/signin" element={<Signup />} />
+         
+          <Route path="/" element={<Home />} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="" element={< />} />
-      <Route path="invoices" element={< />} /> */}
-      </Routes>
+         
+        </Routes>
+      </Notification>
     </BrowserRouter>
   );
 }

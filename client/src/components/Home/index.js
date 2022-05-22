@@ -7,13 +7,16 @@ import { Hero } from "../../templates/Hero";
 
 const Home=()=> {
   
-
+ const selector1 = "productsByPrice";
+ const selector2 = "productsByDate";
   return (
     <div>
       <Slider />
-      <Hero/>
-       </div>
-  )
+      
+      <Hero title="best selling products" selector={selector1} />
+      <Hero title="Latest products" selector={selector2} />
+    </div>
+  );
 }
 
 export default Home;
