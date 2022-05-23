@@ -26,7 +26,7 @@ export const Hero = ({ title, selector }) => {
         {posts == null ? (
           <> loading</>
         ) : (
-            posts.map((m) => {
+            posts.length>0&&posts.map((m) => {
             
             return <ProductCard image={m.image} key={m.id} category={m.category} title={m.title} price={m.price} />;
           })

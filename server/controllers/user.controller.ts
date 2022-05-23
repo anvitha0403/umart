@@ -20,6 +20,8 @@ export const getProfile = async (req: express.Request, res: express.Response, ne
 }
 export const updateProfile = async (req: express.Request, res: express.Response, next: express.NextFunction) => { 
     try {
+
+        
         const user = req.body.user;
         const data = req.body.data;
         console.log(user)

@@ -2,47 +2,51 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const productSchema = mongoose.Schema({
-    title:{
-        required:[true,'you need a title'],
-        type:String,
-        unique:1,
-        maxlength:250
+    title: {
+        required: [true, 'you need a title'],
+        type: String,
+        unique: 1,
+        maxlength: 250
     },
-    category:{
+    category: {
         type: String,
        
-        required:true
+        required: true
     },
     
-    description:{
-        required:[true,'Ypu need a description'],
-        type:String,
-        maxlength:10000
+    description: {
+        required: [true, 'Ypu need a description'],
+        type: String,
+        maxlength: 10000
     },
-    price:{
-        required:true,
+    price: {
+        required: true,
         type: Number,
-        maxlength:255
+        maxlength: 255
     },
-    rating:{
-    type: Object,
+    rating: {
+        type: Object,
         
     },
     
-    shipping:{
-        type:Boolean,
-        required:[true,'Specify if this product has free shipping'],
-        default:false
+    shipping: {
+        type: Boolean,
+        required: [true, 'Specify if this product has free shipping'],
+        default: false
     },
-    image:{
-        type:String,
-        default:""
+    image: {
+        type: String,
+        default: ""
     },
-    dateinsec:{
-        type:Number,
-        default:function() {
-            return (Math.random()*10000)+(new Date().getTime());
+    dateinsec: {
+        type: Number,
+        default: function () {
+            return (Math.random() * 10000) + (new Date().getTime());
         }
+    }
+    , quantity: {
+        type: Number,
+        default: 50,
     }
 });
 

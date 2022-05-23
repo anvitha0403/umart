@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import superagent from "superagent";
-import axios from 'axios'
+import { Navigate } from "react-router-dom";
+
 import { fetchurl } from "../../middlewares/Request";
 const initialState = {
   "data": {
@@ -10,7 +10,7 @@ const initialState = {
     lastname: null,
     history: [],
     verified: null,
-    token:null
+    token:"",
   },
   "auth": null,
   "cart": [],
@@ -37,16 +37,28 @@ const defaultUser = {
 
 
  const signinuser = createAsyncThunk(
-  "user/signin",
+  "user/signinuser",
    async({email, password }, thunkAPI) => {
      console.log(email)
      const response = await fetchurl('http://localhost:5000/api/auth/signin', { email: email, password: password }, 'POST', null)
+  
+     return response;
+  
+  }
+);
+ const edituser = createAsyncThunk(
+  "user/edituser",
+   async ({ change, token }, thunkAPI) => {
+ 
+     const response = await fetchurl('http://localhost:5000/api/user/profile', change, 'PATCH', token)
+     console.log("edit response")
+     console.log(response)
      return response;
   
   }
 );
  const checkuser = createAsyncThunk(
-   "user/signin",
+   "user/checkuser",
    async (token, thunkAPI) => {
   
      const response = await fetchurl(
@@ -65,34 +77,45 @@ export const UserSlice = createSlice({
 
   initialState,
   reducers: {
-    setUser: (state, action) => {
+    setUser: ((state, action) => {
       state.data = action.payload;
-    },
-    clearUser:((state)=>state=initialState)
+    }),
+    clearUser: ((state) => (state = initialState)),
   },
   extraReducers: {
-    [signinuser.pending]: (state) => {},
-    [signinuser.fulfilled]: (state, { payload }) => {
-      console.log(payload);
-      state.data = payload.user;
-      state.data.token = payload.token;
-    },
-    [signinuser.rejected]: (state) => {
+    [signinuser.pending]: ((state) => {}),
+    [signinuser.fulfilled]: ((state,  action ) => {
+     
+      state.data = action.payload.user;
+      state.data.token = action.payload.token;
+     localStorage.setItem('token',state.data.token)
+      return state;
+    }),
+    [signinuser.rejected]: ((state) => {
       state.error = true;
-    },
+    }),
 
-    [checkuser.pending]: (state) => {},
-    [checkuser.fulfilled]: (state, { payload }) => {
-      console.log(payload);
+    [checkuser.pending]: ((state) => {}),
+    [checkuser.fulfilled]: ((state, { payload }) => {
+      console.log(payload.user);
       state.data = payload.user;
       state.data.token = payload.token;
-    },
-    [checkuser.rejected]: (state) => {
+    }),
+    [checkuser.rejected]: ((state) => {
       state.error = true;
-    },
+    }),
+    [edituser.pending]: ((state) => {}),
+    [edituser.fulfilled]: ((state, { payload }) => {
+      console.log(payload);
+      Object.assign(state.data, payload);
+     
+    }),
+    [edituser.rejected]: ((state) => {
+      state.error = true;
+    }),
   },
 });
-export const { setUser,clearUser }   = UserSlice.actions;
+export const { setUser,clearUser, }   = UserSlice.actions;
 
-export  {signinuser,checkuser}
+export { signinuser, checkuser, edituser };
 export default UserSlice.reducer;

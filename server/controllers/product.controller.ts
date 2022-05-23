@@ -76,6 +76,7 @@ export const getAllProducts = async (
 
     console.log("reACHED SERVER")
     const Prod = await Product.find({}).limit(limit).sort(search);
+
     if (Prod == null) {
       throw new ApiError(httpStatus.NOT_FOUND, "Products not found");
     }

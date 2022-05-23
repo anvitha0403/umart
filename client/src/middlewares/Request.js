@@ -4,18 +4,20 @@ export const fetchurl=async(url, body, method1, token)=>{
           var requestOptions;
           if (body) {
                requestOptions = {
-                method: method1,
-                // credentials: 'include',
+                 method: method1,
+                 // credentials: 'include',
 
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body),
-                credentials: "same-origin",
-              };
+                 headers: {
+                   "Content-Type": "application/json",
+                   Authorization: `Bearer ${token}`,
+                 },
+                 body: JSON.stringify(body),
+                 credentials: "same-origin",
+               };
           
           }
           else {
+            console.log("here request")
               requestOptions = {
                 method: method1,
                 // credentials: 'include',

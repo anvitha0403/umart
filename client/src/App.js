@@ -16,7 +16,8 @@ import {Hero} from "./templates/Hero"
 
 
 import "./App.css"
-import DashBoard from "./components/DashBoard";
+import DashBoard from "./components/DashBoard/DashBoard";
+import Info from "./components/DashBoard/InfoUser";
 import Cart from "./components/Cart";
 const App = () => {
   const user = (localStorage.getItem("token"));
@@ -30,22 +31,21 @@ const App = () => {
    dispatch(getProductByPrice());
    dispatch(checkuser(user))
 
- }, []);
+ }, [dispatch,user]);
  
   return (
     <BrowserRouter>
       <Notification>
         <Header></Header>
 
-      
         <Routes>
-          <Route path="/dashboard/user/user_cart" element={<Cart />} />
-          <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/signin" element={<Signup />} />
-         
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/dashboard/user/user_cart" element={<Cart />} /> */}
 
-         
+          <Route path="/signin" element={<Signup />} />
+          <Route path="/dashboard/user/user_info" element={<Info />} />
+          <Route path="/dashboard" element={<DashBoard />} />
+
+          <Route path="/" element={<Home />} />
         </Routes>
       </Notification>
     </BrowserRouter>

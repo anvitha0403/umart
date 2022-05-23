@@ -12,7 +12,7 @@ const getProductByPrice = createAsyncThunk('homeProd/getProductByPrice', async (
 })
 const getProductByDate= createAsyncThunk('homeProd/getProductByDate', async () => {
   const response = await fetchurl(
-    "http://localhost:5000/api/product?sortBy=price&order=1&limit=3",
+    "http://localhost:5000/api/product?sortBy=dateinsec&order=1&limit=3",
     null,
     "GET",
     null

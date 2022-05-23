@@ -3,27 +3,26 @@ import { signinuser } from "../features/user/userSlice"
 import { useDispatch, useSelector } from "react-redux"
 import {useNavigate} from "react-router-dom"
 const Form = () => {
-  const user = useSelector(state => state.user.data.token);
+
   const history = useNavigate();
      const [password, setPassword] = useState("a1234");
      const [submit, onSubmit] = useState(false);
      const [email, setEmail] = useState("a1234@gmail.com");
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
+  const doit = async() => {
+    dispatch(signinuser({ email, password })).then(() => { history("/") });
+  }
   useEffect(() => {
     if (submit) {
       console.log("submit")
-      const register="signin"
-      dispatch(signinuser({ email, password }));
+      doit();
+     
+      
     
       onSubmit(false);
     }
   }, [submit, dispatch])
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem("token", user);
-      history('/dashboard')
-    }
-  }, [user,history]);
+ 
  
   
   const handleChangeEmail = (e) => {

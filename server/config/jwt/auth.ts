@@ -29,7 +29,8 @@ const verify = (role: string[], req: express.Request, res: express.Response, res
 }
 
 
-export const auth = (role:string[]) => async(req:express.Request, res: express.Response,next:express.NextFunction) => {
+export const auth = (role: string[]) => async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.log(req.body)
     return new Promise((resolve, reject)=>{
         passport.authenticate('jwt',{ session:false}, verify( role,req, res, resolve, reject))(req,res,next)
     })

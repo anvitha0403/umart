@@ -3,10 +3,10 @@ import AuthGuard from './hoc/AuthGuard'
 
 const Cart = () => {
     return (
-      <AuthGuard>
+    
         <div>Cart</div>
-      </AuthGuard>
+     
     );
 }
 
-export default Cart
+export default AuthGuard(Cart)
