@@ -3,11 +3,17 @@ import * as productController from "../controllers/product.controller"
 import {auth} from "../config/jwt/auth"
 export const prodr = express.Router()
 
-prodr.route("/:id")
+
+prodr.route("/all")
+    .post(
+        // auth(["admin", "user"]),
+        productController.allnewProduct)
+prodr.route("/filter")
+    .get(productController.getFilter)
+    prodr.route("/:id")
 .get(auth(["user","admin"]),productController.getProduct)
     .delete(auth(["admin", "user"]), productController.deleteProduct)
-prodr.route("/")
+
+    prodr.route("/")
     .post(auth(["admin", "user"]), productController.newProduct)
     .get(productController.getAllProducts)
-prodr.route("/all")
-.post(auth(["admin", "user"]), productController.allnewProduct)

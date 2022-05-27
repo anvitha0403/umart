@@ -4,9 +4,9 @@ import {setNotification} from '../features/Notification/notificationSlice'
 import ProductCard from "./ProductCard"
 
 
-export const Hero = ({ title, selector }) => {
-   const posts = useSelector((state) => state.productHome[selector]);
-  const error = useSelector((state) => state.productHome.error);
+export const Hero = ({ title, selector,error }) => {
+   const posts = useSelector(selector);
+  const error1 = useSelector(error);
   const dispatch = useDispatch();
   useEffect(() => {
     if (error) {
@@ -16,7 +16,7 @@ export const Hero = ({ title, selector }) => {
       dispatch(setNotification(action));
     }
    
- },[error,dispatch])
+ },[error1,dispatch])
  
   console.log(posts)
   return (

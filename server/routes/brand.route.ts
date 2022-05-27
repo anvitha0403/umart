@@ -8,6 +8,6 @@ brandr.route("/:id")
     .delete(auth(["admin", "user"]), brandController.deleteBrand)
 brandr.route("/")
     .post(auth(["admin", "user"]), brandController.newBrand)
-    .get(auth(["user","admin"]),brandController.getAllBrands)
+    .get(brandController.getAllBrands)
 
 

@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit"
 import counterReducer from "../features/counter/counterSlice"
 import userReducer from "../features/user/userSlice"
-import { postReducer } from "../features/post/postsSlice"
+import { postReducer } from "../features/post/postsSlice" 
+import shopReducer from "../features/Shop/ShopSlice" 
+
 import { ProductHomeReducer } from "../features/productHome/productHomeSlice";
 import  NotificationReducer  from "../features/Notification/notificationSlice";
 
@@ -11,7 +13,8 @@ export const store = configureStore({
     user: userReducer,
     posts: postReducer,
     productHome: ProductHomeReducer,
-    notification:NotificationReducer,
+    notification: NotificationReducer,
+    shop: shopReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(),
   devTools: process.env.NODE_ENV !== "production",

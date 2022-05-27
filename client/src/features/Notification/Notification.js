@@ -7,7 +7,7 @@ import {removeNotification} from "./notificationSlice"
     useEffect(() => {
         if (error) {
             dispatch(removeNotification());
-            alert("error");
+           
             
         }
     },[error,success,dispatch])

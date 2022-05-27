@@ -7,14 +7,26 @@ import { Hero } from "../../templates/Hero";
 
 const Home=()=> {
   
- const selector1 = "productsByPrice";
- const selector2 = "productsByDate";
+ 
+  const selector1 = (state) => state.productHome.productsByPrice;
+  const selector2 = (state) => state.productHome.productsByDate;
+
   return (
     <div>
       <Slider />
-      
-      <Hero title="best selling products" selector={selector1} />
-      <Hero title="Latest products" selector={selector2} />
+
+      <Hero
+        key={1}
+        title="best selling products"
+        selector={selector1}
+        error={(state) => state.productHome.error}
+      />
+      <Hero
+        key={2}
+        title="Latest products"
+        selector={selector2}
+        error={(state) => state.productHome.error}
+      />
     </div>
   );
 }

@@ -19,6 +19,7 @@ import "./App.css"
 import DashBoard from "./components/DashBoard/DashBoard";
 import Info from "./components/DashBoard/InfoUser";
 import Cart from "./components/Cart";
+import Shop from "./components/Shop";
 const App = () => {
   const user = (localStorage.getItem("token"));
 
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/dashboard" element={<DashBoard />} />
 
           <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
         </Routes>
       </Notification>
     </BrowserRouter>
