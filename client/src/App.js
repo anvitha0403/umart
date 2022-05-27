@@ -20,6 +20,7 @@ import DashBoard from "./components/DashBoard/DashBoard";
 import Info from "./components/DashBoard/InfoUser";
 import Cart from "./components/Cart";
 import Shop from "./components/Shop";
+import ProductPage from "./components/ProductPage";
 const App = () => {
   const user = (localStorage.getItem("token"));
 
@@ -40,8 +41,9 @@ const App = () => {
         <Header></Header>
 
         <Routes>
-          {/* <Route path="/dashboard/user/user_cart" element={<Cart />} /> */}
-
+          <Route path="/dashboard/user/user_cart" element={<Cart />} />
+          <Route path="/shop/:id" element={<ProductPage />} />
+          <Route path="/dashboard/user/user_info" element={<Info />} />
           <Route path="/signin" element={<Signup />} />
           <Route path="/dashboard/user/user_info" element={<Info />} />
           <Route path="/dashboard" element={<DashBoard />} />

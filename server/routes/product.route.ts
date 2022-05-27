@@ -11,7 +11,7 @@ prodr.route("/all")
 prodr.route("/filter")
     .get(productController.getFilter)
     prodr.route("/:id")
-.get(auth(["user","admin"]),productController.getProduct)
+.get(productController.getProduct)
     .delete(auth(["admin", "user"]), productController.deleteProduct)
 
     prodr.route("/")

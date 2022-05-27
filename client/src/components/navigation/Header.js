@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <nav className="nav">
       <div className="nav-container">
-        <div className="nav-child  logo">UMART</div>
+        <Link className="nav-child  logo" to="/">UMART</Link>
 
         <div className="nav-child">
           <Link className="side_links" to="/dashboard/user/user_cart">

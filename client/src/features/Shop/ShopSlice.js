@@ -4,10 +4,18 @@ const initialState = {
   categories: [],
   filters: {},
   error: false,
-  
+  product:{},
+  loading:false,
   
     
 };
+export const singleProduct = createAsyncThunk("shop/singleProduct",
+  async (id, thunkAPI) => {
+
+    const prod = await fetchurl(`http://localhost:5000/api/product/${id}`,null,'GET',null);
+    console.log(prod);
+    return prod;
+})
 export const filterResult = createAsyncThunk(
   "shop/filterResult",
   async (filter, thunkAPI) => {
@@ -54,6 +62,17 @@ const ShopSlice = createSlice({
       state.filters = payload;
     },
     [filterResult.rejected]: (state) => {
+      state.error = true;
+    },
+    [singleProduct.pending]: (state) => {
+      state.loading = true;
+    },
+    [singleProduct.fulfilled]: (state, { payload }) => {
+      console.log(`${payload} is payload`);
+      state.product = payload;
+      state.loading=false
+    },
+    [singleProduct.rejected]: (state) => {
       state.error = true;
     },
   },

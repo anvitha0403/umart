@@ -28,7 +28,7 @@ export const Hero = ({ title, selector,error }) => {
         ) : (
             posts.length>0&&posts.map((m) => {
             
-            return <ProductCard image={m.image} key={m.id} category={m.category} title={m.title} price={m.price} />;
+            return <ProductCard _id={m._id} image={m.image} key={m.id} category={m.category} title={m.title} price={m.price} />;
           })
         )}
         );
