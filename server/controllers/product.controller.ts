@@ -186,6 +186,7 @@ console.log(req.query.category)
       pages,
       prevPage: page > 1,
       nextPage: page < pages,
+      page,
       
 
     }

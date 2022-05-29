@@ -11,6 +11,7 @@ import Form from './templates/Form'
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductByDate, getProductByPrice } from "./features/productHome/productHomeSlice";
+import {getCategory} from "./features/Shop/ShopSlice"
 import { checkuser} from "./features/user/userSlice";
 import {Hero} from "./templates/Hero"
 
@@ -31,6 +32,7 @@ const App = () => {
  useEffect(() => {
    dispatch(getProductByDate());
    dispatch(getProductByPrice());
+     dispatch(getCategory());
    dispatch(checkuser(user))
 
  }, [dispatch,user]);

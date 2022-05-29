@@ -6,7 +6,8 @@ import {clearUser} from '../../features/user/userSlice'
 
 const Header = () => {
   const dispatch = useDispatch();
-  const user=useSelector(state=>state.user)
+  const user = useSelector(state => state.user)
+  const num = Object.keys(user.cart).length;
   const Navigate = useNavigate();
   const handlelogout = () => {
     dispatch(clearUser())
@@ -16,11 +17,13 @@ const Header = () => {
   return (
     <nav className="nav">
       <div className="nav-container">
-        <Link className="nav-child  logo" to="/">UMART</Link>
+        <Link className="nav-child  logo" to="/">
+          UMART
+        </Link>
 
         <div className="nav-child">
           <Link className="side_links" to="/dashboard/user/user_cart">
-            <span>1</span>
+            <span value={num}></span>
             My cart
           </Link>
 
@@ -28,9 +31,11 @@ const Header = () => {
             My account
           </Link>
           {user && user.data.token ? (
-            <Link className="side_links" to="/">
-              <span onClick={handlelogout}>Log out</span>
-            </Link>
+            // <Link to="/">
+              <div className="side_links" onClick={handlelogout}>
+                Log out
+              </div>
+            // {/* </Link> */}
           ) : (
             <Link className="side_links" to="/signin">
               Log in

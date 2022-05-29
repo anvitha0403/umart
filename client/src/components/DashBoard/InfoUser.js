@@ -1,12 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import AuthGuard from '../hoc/AuthGuard';
 import { edituser } from '../../features/user/userSlice';
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 const InfoUser = (props) => {
     const user = props.user.data;
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
      const [firstName, setFirstName] = useState(user.firstName);
-     const [lastName, setLastName] = useState(user.LastName);
+     const [lastName, setLastName] = useState(user.lastName);
      const [submit, onSubmit] = useState(false);
     const [email, setEmail] = useState(user.email);
     useEffect(() => {
@@ -18,6 +20,7 @@ const InfoUser = (props) => {
                 change: change, token: token
             }))
           onSubmit(false);
+          Navigate("/dashboard");
         }
     },[submit,dispatch])
   const handleChangeEmail = (e) => {
@@ -36,7 +39,7 @@ const InfoUser = (props) => {
     <div>
       <div className="form-container">
         <div className="form-content">
-          <div className="hero-heading">Sign IN</div>
+          <div className="hero-heading">Edit Your details</div>
           <div className="label-container">
             <div className="label">Enter your email</div>
             <input
@@ -71,7 +74,7 @@ const InfoUser = (props) => {
        full"
             onClick={handleSubmit}
           >
-            Login
+        Edit details
           </div>
         </div>
       </div>

@@ -5,10 +5,15 @@ const initialState = {
   filters: {},
   error: false,
   product:{},
-  loading:false,
+  loading: false,
+  addedcat:[],
   
     
 };
+
+ 
+  
+
 export const singleProduct = createAsyncThunk("shop/singleProduct",
   async (id, thunkAPI) => {
 
@@ -46,7 +51,15 @@ export const getCategory = createAsyncThunk(
 const ShopSlice = createSlice({
   name: "shop",
   initialState,
-  reducers: {},
+  reducers: {
+    addCat: (state, { payload }) => {
+      console.log(payload.cat);
+      state.addedcat = [payload.cat];
+    },
+    setLoading: (state, { payload }) => {
+      state.loading = payload.status;
+    }
+  },
   extraReducers: {
     [getCategory.pending]: (state) => {},
     [getCategory.fulfilled]: (state, { payload }) => {
@@ -56,10 +69,13 @@ const ShopSlice = createSlice({
     [getCategory.rejected]: (state) => {
       state.error = true;
     },
-    [filterResult.pending]: (state) => {},
+    [filterResult.pending]: (state) => {
+      state.loading = true;
+    },
     [filterResult.fulfilled]: (state, { payload }) => {
       console.log(`${payload} is payload`);
       state.filters = payload;
+      state.loading = false;
     },
     [filterResult.rejected]: (state) => {
       state.error = true;
@@ -70,7 +86,7 @@ const ShopSlice = createSlice({
     [singleProduct.fulfilled]: (state, { payload }) => {
       console.log(`${payload} is payload`);
       state.product = payload;
-      state.loading=false
+      state.loading = false;
     },
     [singleProduct.rejected]: (state) => {
       state.error = true;
@@ -78,5 +94,5 @@ const ShopSlice = createSlice({
   },
 });
 
-
+export const { addCat, setLoading } = ShopSlice.actions;
 export default  ShopSlice.reducer;

@@ -3,35 +3,73 @@ import {getCategory} from '../features/Shop/ShopSlice'
 import {filterResult} from '../features/Shop/ShopSlice'
 import { useDispatch,useSelector } from 'react-redux';
 import { Hero } from '../templates/Hero';
-const Shop = () => {
-    const dispatch = useDispatch();
+import { addCat, setLoading } from "../features/Shop/ShopSlice";
+import PageCounter from "../templates/PageCounter";
+import Loader from '../templates/Loader';
+const Shop = (props) => {
+  const dispatch = useDispatch();
+  const cat = useSelector((state) => state.shop.addedcat);
   const category = useSelector((state) => state.shop.categories);
+  const loading=useSelector((state) => state.shop.loading)
   
     const [checkbox,setcheckbox]=useState(new Array(100).fill(false))
   
     const [filters, setFilters] = useState({
       price: {
         minr: 0,
-        maxr: 10000,
+        maxr: 50000,
         min: 0,
-        max:10000,
+        max:50000,
         sort: 1,
       },
-      category: [],
-      limit: 10,
+      category: cat,
+      limit: 6,
       page:1,
     });
+ 
   const [rangemin, setRangemin] = useState(filters.price.minr);
   const [rangemax, setRangemax] = useState(filters.price.maxr);
-    useEffect(() => {
-         dispatch(getCategory());
-      
-        
-        
-    }, [])
+ 
+
   useEffect(() => {
-    dispatch(filterResult(filters))
-  },[filters,dispatch])
+    if (cat.length>0) {
+      console.log(category)
+      var index = -1;
+      for (var i = 0; i < category.length; i++){
+        if (category[i].name === cat[0]) {
+          index = i;
+          break;
+        }
+      }
+       console.log(cat)
+       console.log(index);
+       setcheckbox((state) => {
+         state[index] = true;
+         return [...state];
+       });
+       setFilters((state) => {
+         if (state.category.length === 0) {
+           state.category=cat
+         }
+         return { ...state };
+       });
+      const filter = { ...filters };
+      filter.category = cat;
+      dispatch(filterResult(filter));
+       
+       dispatch(addCat({ cat: [] }));
+    }
+  
+
+  }, [])
+
+
+  useEffect(() => {
+    if (loading === false) {
+      console.log(filters.category);
+      dispatch(filterResult(filters));
+    }
+  }, [filters, dispatch]);
   const handleRangemin = (e) => {
     const val1 = e.target.value;
     setFilters(state => {
@@ -42,6 +80,7 @@ const Shop = () => {
     setRangemin(val1);
     
    }
+
   const handleRangemax = (e) => {
     const val1 = e.target.value;
      setFilters((state) => {
@@ -56,9 +95,11 @@ const Shop = () => {
             console.log(index)
             console.log(checkbox)
             setFilters(state => {
-                const value = document.getElementById(`check${index}`).value;
+              const value = document.getElementById(`check${index}`).value;
+              console.log(state.category);
                state.category=state.category.filter((item) => item !== value);
-                state.category.push(value)
+              state.category.push(value)
+              state.page = 1;
               return { ...state };
             })
         }
@@ -105,9 +146,9 @@ state.category=state.category.filter((item) => item !== value);
         ) : (
           <></>
         )}
-        <label htmlFor="">
-          <div>{rangemin}</div>
-          <input
+        {/* <label htmlFor="">
+          <div>{rangemin}</div> */}
+        {/* <input
             type="range"
             name="price"
             id="price"
@@ -124,17 +165,43 @@ state.category=state.category.filter((item) => item !== value);
             max={filters.price.maxr}
             onChange={(e) => handleRangemax(e)}
             value={rangemax}
+          /> */}
+        {/*           
+        </label> */}
+        <div className="label-container">
+          <label>enter min price</label>
+          <input
+            type="text"
+            className="form-input"
+            value={filters.price.min}
+            onChange={handleRangemin}
           />
-          <span className="mark"> </span>
-          <div>{rangemax}</div>
-        </label>
+        </div>
+        <div className="label-container">
+          <label>enter max price</label>
+          <input
+            type="text"
+            className="form-input"
+            value={filters.price.max}
+            onChange={handleRangemax}
+          />
+        </div>
       </div>
       <div className="shop-products">
-        <Hero
-          selector={(state) => state.shop.filters.products}
-          title={"shop"}
-          error={(state) => state.shop.error}
-        />
+        {loading ? (
+          <>
+            <Loader />
+          </>
+        ) : (
+          <>
+            <Hero
+              selector={(state) => state.shop.filters.products}
+              
+              error={(state) => state.shop.error}
+            />
+            <PageCounter filter={filters} />
+          </>
+        )}
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import registerEmail from '../services/email.services';
 export const register =async (req: express.Request, res: express.Response,next: express.NextFunction) => {
     try {
        
-        const { email, password } = req.body;
+        const { email, password ,firstName} = req.body;
         console.log(email)
         console.log(password)
         if (await authService.findUser(email) != null) {
@@ -23,7 +23,7 @@ export const register =async (req: express.Request, res: express.Response,next: 
             
            
             user.token = token;
-            res.cookie('token', token,{maxAge: 900000, httpOnly: true })
+            // res.cookie('token', token,{maxAge: 900000, httpOnly: true })
                     res.json({ user, token });
         }
 

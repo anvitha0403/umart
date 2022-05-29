@@ -51,7 +51,8 @@ const userSchema = new Schema({
         
 
     },
-      verified:{}
+    verified: {},
+      cart:[],
       
       
 

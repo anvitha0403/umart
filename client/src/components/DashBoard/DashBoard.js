@@ -73,7 +73,7 @@ const DashBoard = (props) => {
                         click to add Last Name
                       </Link>
                     ) : (
-                      user.firstName
+                      user.lastName
                     )}
                   </div>
                   <div className="product-card__button overview-m">
@@ -86,6 +86,12 @@ const DashBoard = (props) => {
                       user.email
                     )}
                   </div>
+                  <Link
+                    to="/dashboard/user/user_info"
+                    className="product-card__button inline"
+                  >
+                    Click to Edit Details
+                  </Link>
                 </div>
               ) : (
                 <></>
