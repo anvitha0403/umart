@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.ts",
+     
+    "start": "node server.ts",
     "client": "npm run --prefix client start",
     "dev": "concurrently \"npm run start\" \"npm run client\"",
     "heroku-postbuild":"cd client && npm install && npm run build"
