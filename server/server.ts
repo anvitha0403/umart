@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieparser from 'cookie-parser';
 import mongoose from "mongoose";
+import path from "path";
 // import xss from 'xss-clean';
 import mongoSanitize from 'express-mongo-sanitize';
 import database from './config/database'
@@ -12,7 +13,7 @@ const app = express()
 const cors = require('cors');
 
 const corsOption = {
-    origin: ['http://localhost:3000'],
+    origin: ['*'],
 };
 
 app.use(express.json())
@@ -41,7 +42,12 @@ passport.use('jwt',jwtStrategy );
 database()
     console.log("here")
 app.use("/api", routes)
-console.log("here before")
+app.use(express.static(path.join(__dirname, '/client/build')))
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname,'/client/build','index.html'))
+})
+
+
 app.use((err:ApiError, req:express.Request, res:express.Response, next:express.NextFunction) => {
     handleError(err, res);
 })
